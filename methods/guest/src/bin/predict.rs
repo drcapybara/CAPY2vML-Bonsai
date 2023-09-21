@@ -21,12 +21,8 @@ use risc0_zkvm::guest::env;
 
 risc0_zkvm::guest::entry!(main);
 
-fn fibonacci(n: U256) -> U256 {
-    let (mut prev, mut curr) = (U256::one(), U256::one());
-    for _ in 2..=n.as_u32() {
-        (prev, curr) = (curr, prev + curr);
-    }
-    curr
+fn predict(n: U256) -> U256 {
+    U256::from(251) * n + U256::from(3314)
 }
 
 fn main() {
@@ -39,7 +35,7 @@ fn main() {
     let n: U256 = input[0].clone().into_uint().unwrap();
 
     // Run the computation.
-    let result = fibonacci(n);
+    let result = predict(n);
 
     // Commit the journal that will be received by the application contract.
     // Encoded types should match the args expected by the application callback.

@@ -16,7 +16,7 @@ use anyhow::Context;
 use bonsai_ethereum_relay::sdk::client::{CallbackRequest, Client};
 use clap::Parser;
 use ethers::{abi::ethabi, types::Address};
-use methods::FIBONACCI_ID;
+use methods::PREDICT_ID;
 use risc0_zkvm::sha::Digest;
 
 /// Exmaple code for sending a REST API request to the Bonsai relay service to
@@ -28,7 +28,7 @@ struct Args {
     /// Adress for the BonsaiStarter application contract.
     address: Address,
 
-    /// Input N for calculating the Nth Fibonacci number.
+    /// Input N for calculating a prediction.
     number: u64,
 
     /// Bonsai Relay API URL.
@@ -51,7 +51,7 @@ async fn main() -> anyhow::Result<()> {
     )
     .context("Failed to initialize the relay client")?;
 
-    // Initialize the input for the FIBONACCI guest.
+    // Initialize the input for the PREDICT guest.
     let input = ethabi::encode(&[ethers::abi::Token::Uint(args.number.into())]);
 
     // Create a CallbackRequest for your contract
@@ -62,7 +62,7 @@ async fn main() -> anyhow::Result<()> {
         // to get the value for your actual contract (9f2275c0: storeResult(uint256,uint256))
         function_selector: [0x9f, 0x22, 0x75, 0xc0],
         gas_limit: 3000000,
-        image_id: Digest::from(FIBONACCI_ID).into(),
+        image_id: Digest::from(PREDICT_ID).into(),
         input,
     };
 
