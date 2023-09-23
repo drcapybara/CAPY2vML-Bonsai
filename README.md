@@ -53,6 +53,8 @@ You now have a locally running testnet and relay deployment that you can interac
     cast send --private-key 0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d --gas-limit 100000 "$APP_ADDRESS" 'calculatePredict(uint256)' 31 --value 0.01ether 
     ```
 
+This prediction costs 0.01 eth, so this fee is paid to the data owner in exchange for the analysis.
+
 2. Check the relayed result:
 
     ```bash
